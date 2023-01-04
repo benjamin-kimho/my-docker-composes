@@ -1,0 +1,36 @@
+services:
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-lib:/var/lib/redis
+      - redis-conf:/usr/local/etc/redis
+      - redis-data:/data
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      - docker-network
+
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    driver: bridge
+
+volumes:
+  redis-lib:
+  redis-data:
+  redis-conf:
