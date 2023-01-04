@@ -1,0 +1,21 @@
+services:
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    user: root
+    command: ["-storage=maildir", "-maildir-path=/maildir"]
+    volumes:
+      - maildir:/maildir
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    driver: bridge
+
+volumes:
+  maildir:
