@@ -2,6 +2,7 @@ services:
 
   minio:
     container_name: minio
+    restart: unless-stopped
     image: minio/minio
     command: server /data --console-address "0.0.0.0:9001"
     volumes:

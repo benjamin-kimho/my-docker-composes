@@ -2,6 +2,7 @@ services:
   redis:
     image: redis
     container_name: redis
+    restart: unless-stopped
     ports:
       - "6379:6379"
     volumes:
@@ -15,6 +16,7 @@ services:
 
   redis-commander:
     container_name: redis-commander
+    restart: unless-stopped
     hostname: redis-commander
     image: rediscommander/redis-commander:latest
     depends_on:

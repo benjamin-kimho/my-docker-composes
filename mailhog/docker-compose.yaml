@@ -3,6 +3,7 @@ services:
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
+    restart: unless-stopped
     user: root
     command: ["-storage=maildir", "-maildir-path=/maildir"]
     volumes:
